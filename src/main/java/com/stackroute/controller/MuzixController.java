@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.List;
 
 @RestController //used to enable @Controller, and  @Responsebody
-@RequestMapping(value="api/v1")
+@RequestMapping(value="/api/v1")
 public class MuzixController extends ResponseEntityExceptionHandler {
 
     //A variable of type MuzixService
