@@ -12,8 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 public class MuzixApplication {
 
-	@Autowired
-	private MuzixRepository muzixRepository;
+	//@Autowired
+	//private MuzixRepository muzixRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(MuzixApplication.class, args);
 	}

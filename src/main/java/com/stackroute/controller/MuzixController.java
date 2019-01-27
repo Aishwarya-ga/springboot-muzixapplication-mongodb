@@ -52,13 +52,13 @@ public class MuzixController extends ResponseEntityExceptionHandler {
     @DeleteMapping("muzix/{trackId}")
     public ResponseEntity<?> deleteMuzix(@PathVariable int trackId) throws MuzixNotFoundException{
         muzixService.removeMuzix(trackId);
-        return new ResponseEntity<String>("Successfully Deleted", HttpStatus.ACCEPTED);
+        return new ResponseEntity<String>("Successfully Deleted", HttpStatus.OK);
     }
 
     //Method to trackby id
     @GetMapping("muzix/{trackId}")
     public ResponseEntity<?> getById(@PathVariable int trackId) throws MuzixNotFoundException {
-        return new ResponseEntity (muzixService.trackByTrackId(trackId), HttpStatus.OK);
+        return new ResponseEntity(muzixService.trackByTrackId(trackId), HttpStatus.OK);
     }
     //Mehtod to track by name
     @GetMapping("muzixs/{trackName}")

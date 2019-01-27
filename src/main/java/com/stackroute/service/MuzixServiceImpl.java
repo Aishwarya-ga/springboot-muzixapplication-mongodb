@@ -28,10 +28,16 @@ public class MuzixServiceImpl implements MuzixService {
     //Overriden method to save the muzix
     @Override
     public Muzix saveMuzix(Muzix muzix) throws MuzixAlreadyExistsException{
+        Muzix savedMuzix = null;
         if(muzixRepository.existsById(muzix.getTrackId())){
             throw new MuzixAlreadyExistsException("Track already exists");
         }
-        Muzix savedMuzix = muzixRepository.save(muzix);
+        else{
+             savedMuzix = muzixRepository.save(muzix);
+             if(savedMuzix == null){
+                 throw new MuzixAlreadyExistsException("Track already exists");
+             }
+        }
         return savedMuzix;
     }
 
@@ -47,8 +53,7 @@ public class MuzixServiceImpl implements MuzixService {
     //Overriden method to update the muzix
     @Override
     public Muzix updateMuzix(int trackId,String comment) throws MuzixNotFoundException {
-
-        if (muzixRepository.findById(trackId).isEmpty()) {
+        if (!muzixRepository.existsById(trackId)) {
             throw new MuzixNotFoundException("Track not found to update");
         }
         Optional<Muzix> muzix = muzixRepository.findById(trackId);
@@ -60,17 +65,18 @@ public class MuzixServiceImpl implements MuzixService {
 
     //Overriden method to remove the muzix
     @Override
-    public void removeMuzix(int trackId) throws MuzixNotFoundException{
+    public List<Muzix> removeMuzix(int trackId) throws MuzixNotFoundException{
         if(!muzixRepository.existsById(trackId)){
             throw new MuzixNotFoundException("Track not found");
         }
         muzixRepository.deleteById(trackId);
+        return muzixRepository.findAll();
     }
 
     //Overriden method to track by id
     @Override
     public Muzix trackByTrackId(int trackId) throws MuzixNotFoundException {
-        if (muzixRepository.findById(trackId).isEmpty()) {
+        if (!muzixRepository.existsById(trackId)) {
             throw new MuzixNotFoundException("Track not found to update");
         }
         Optional<Muzix> muzix1 = muzixRepository.findById(trackId);
